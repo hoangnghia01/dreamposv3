@@ -1,0 +1,338 @@
+.page_hone {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+.home_page {
+    width: 100%;
+    height: 100vh;
+    padding: 20px 0;
+    text-align: center;
+
+    overflow: hidden;
+}
+
+.home_page_hello {
+    margin: 0;
+    padding: 0;
+}
+
+.address {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.address span {
+    margin-left: 10px;
+}
+
+.company_img {
+    width: 100%;
+}
+
+.company_img img {
+    width: 100%;
+}
+
+
+.home_page_table {
+    margin-bottom: 15px;
+    width: 100%;
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.number_table {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+    width: 40px;
+    height: 40px;
+    background: rgb(236, 236, 236);
+    border-radius: 5px;
+}
+
+.home_page_table p {
+    margin: 0;
+}
+
+
+.button_call {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.call,
+.call_bill,
+.call_comment {
+    width: 32%;
+    height: 100px;
+    /* border: 1px solid orange; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    border-radius: 10px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    padding: 5px;
+}
+
+.call p {
+    margin: 0;
+    padding: 0;
+}
+
+.call_bill p {
+    margin: 0;
+    padding: 0;
+}
+
+.call_comment p {
+    margin: 0;
+    padding: 0;
+}
+
+.call_icon {
+    font-size: 50px;
+    width: 100%;
+    /* height: 80px; */
+}
+
+.menu_thanh_toan {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* background: red; */
+    transition: 0.5s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+
+.menu_thanh_toan.activemenu_thanh_toan {
+    top: 0;
+}
+
+.close_menu_thanh_toan {
+    height: 40vh;
+    width: 100%;
+}
+
+.menu_thanh_toan_content {
+    width: 100%;
+    /* height: 60vh; */
+    background: #ffffff;
+    border-radius: 10px 10px 0 0;
+    padding: 20px 0 30px 0;
+    text-align: start;
+    line-height: 40px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    border-radius: 20px;
+    display: flex;
+    align-items: flex-end;
+}
+
+.thanhtoan_button {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    padding: 0 20px;
+    font-size: 17px;
+    border: 1px solid orange;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.thanhtoan_icon {
+    font-size: 30px;
+    margin-right: 15px;
+    color: orange;
+}
+
+.thanhtoan_button label {
+    width: 90%;
+    text-align: start;
+}
+
+.gui_y_cau {
+    width: 100%;
+    height: 50px;
+    border-radius: 10px;
+    border: none;
+    background: orange;
+    color: #fff;
+    font-size: 20px;
+    margin-top: 15px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.menu_goi_nhanvien {
+    width: 100%;
+    height: 100vh;
+    /* background: red; */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    transition: 0.5s;
+
+
+}
+
+.menu_goi_nhanvien.activemenu_goi_nhanvien {
+    top: 0;
+}
+
+.close_menu_goi_nhanvien {
+    width: 100%;
+    height: 60vh;
+}
+
+.menu_goi_nhanvien_content {
+    width: 100%;
+    height: 40vh;
+    background: #fff;
+    padding: 30px 0 0 0;
+    line-height: 30px;
+    border-radius: 20px 20px 0 0;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.menu_goi_nhanvien_content input {
+    width: 100%;
+    padding: 15px 10px;
+    border-radius: 10px;
+    border: 1px solid orange;
+
+}
+
+
+.menu_danh_gia {
+    width: 100%;
+    height: 100vh;
+    top: 100%;
+    left: 0;
+    /* background: orchid; */
+    position: absolute;
+    transition: 0.5s;
+}
+
+.menu_danh_gia.activemenu_danh_gia {
+    top: 0;
+}
+
+.menu_danh_gia_content {
+    background: #ffffff;
+    width: 100%;
+    height: 80vh;
+    padding: 15px 0;
+    border-radius: 20px 20px 0 0;
+}
+
+.close_menu_danh_gia {
+    width: 100%;
+    height: 20vh;
+}
+
+.menu_danh_gia_content span {
+    font-size: 40px;
+    margin-right: 10px;
+}
+
+.banchuahailong {
+    /* padding: 10px 0 20px 0; */
+    border-bottom: 1px solid orange;
+}
+
+.danhgia_mau p {
+    padding: 5px;
+    margin: 5px 0;
+    border-radius: 5px;
+    background: #f3f3f3;
+}
+
+.button_ly_do_khac {
+    width: 100%;
+    padding: 15px 10px;
+    border-radius: 10px 10px;
+    border: 1px solid orange;
+}
+
+.gui_danh_gia_container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    background: #fff;
+    width: 100%;
+    /* padding: 0 20px; */
+    margin-bottom: 30px;
+    border-radius: 20px 20px 0 0 ;
+}
+.gui_danh_gia_container_gui{
+    display: flex;
+    justify-content: space-between;
+}
+.gui_danh_gia_container_gui_input{
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid orange;
+}
+.gui_danh_gia_container_gui_button{
+    border: none;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    background: orange;
+    /* padding: 0 10px; */
+    height: 50px;
+    color: #fff;
+}
+.view_menu {
+    width: 100%;
+    display: flex;
+    height: 80px;
+    justify-content: left;
+    align-items: center;
+    /* border: 1px solid orange; */
+    background: orange;
+    margin-top: 20px;
+    /* padding: 0 10px; */
+    border-radius: 10px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.view_menu p {
+    margin: 0 20px;
+    padding: 0;
+    font-size: 20px;
+}
+
+.view_menu_icon {
+    font-size: 40px;
+    color: orange;
+    border: 1px solid #fff;
+    background: #fff;
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    margin-left: 15px;
+}
+.danhgia_mau .selected-reason{
+    background: orange;
+}
