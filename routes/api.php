@@ -32,5 +32,7 @@ Route::get('/product/updateItem-to-cart/{productId}/{num}', [CartController::cla
 Route::get('/product/delete-to-cart', [CartController::class, 'emptyCart'])->name('product.delete-to-cart');
 
 
-Route::post('placeorderclient',[ClientOrderController::class, 'clientPlaceOrder'])->name('place-order-client');
-Route::post('/save-review',[CienltController::class, 'saveReview']);
+Route::post('placeorderclient', [ClientOrderController::class, 'clientPlaceOrder'])->name('place-order-client')->middleware('checkwifi');
+Route::post('/save-review', [CienltController::class, 'saveReview'])->middleware('checkwifi');
+
+

@@ -391,11 +391,10 @@
             <p class="text-grey-darker text-2xl md:text-2xl font-light mb-8 leading-normal">
                 @yield('message1')
             </p>
-            <a href="{{ route('admin.dashboard') }}">
+            <a href="{{ route('home') }}">
                 <button class="bg-transparent text-grey-darkest font-bold uppercase tracking-wide py-3 px-6 border-2 border-grey-light hover:border-grey rounded-lg">
                     {{ __('Back to Home') }}
                 </button>
-
             </a>
         </div>
     </div>

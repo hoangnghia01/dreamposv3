@@ -32,6 +32,9 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception)
     {
         if ($exception instanceof NotFoundHttpException) {
+            return response()->view('errors.403', [], 403); // Trả về trang lỗi 404 tùy chỉnh
+        }
+        if ($exception instanceof NotFoundHttpException) {
             return response()->view('errors.404', [], 404); // Trả về trang lỗi 404 tùy chỉnh
         }
         // Trả về trang lỗi 500 tùy chỉnh

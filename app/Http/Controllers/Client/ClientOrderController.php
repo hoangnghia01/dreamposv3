@@ -70,7 +70,10 @@ class ClientOrderController extends Controller
             //Reset cart
             session()->put('cart', []);
             DB::commit();
-            return redirect()->route('home');
+            return response()->json([
+                'message' => 'Goi thanh cong',
+                'order_id' => $order->id,
+            ]);
 
         }catch(\Exception $exception){
             DB::rollBack();

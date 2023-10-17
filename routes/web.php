@@ -39,6 +39,9 @@ Route::get('/404', function () {
 Route::get('/500', function () {
     return view('errors.500');
 });
+Route::get('/403', function () {
+    return view('errors.403');
+});
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

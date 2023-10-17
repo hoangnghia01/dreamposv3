@@ -1,5 +1,8 @@
 <?php $page="index-four";?>
 @extends('pos.layout.master')
+@section('title')
+    <title>Dashboard</title>
+@endsection
 @section('content')
 <div class="page-wrapper page-wrapper-four" style="margin: 0">
     <div class="content" style="width: 100%">
@@ -21,20 +24,19 @@
                         <span><img src="{{URL::asset('assets/img/icons/dash1.svg')}}" alt="img"></span>
                     </div>
                     <div class="dash-widgetcontent">
-                        <h5 >$<span class="counters" data-count="307144.00">$307,144.00</span></h5>
-                        <h6>Total Purchase Due</h6>
+                        <h5 ><span class="counters" data-count="{{ $totalOrdersToDay }}">{{ $totalOrdersToDay }}</span> Order</h5>
+                        <h6>Total Order Today</h6>
                     </div>
                 </div>
             </div>
-
             <div class="col-lg-3 col-sm-6 col-12">
                 <div class="dash-widget dash2">
                     <div class="dash-widgetimg">
                         <span><img src="{{URL::asset('assets/img/icons/dash3.svg')}}" alt="img"></span>
                     </div>
                     <div class="dash-widgetcontent">
-                        <h5 >$<span class="counters" data-count="385656.50">385,656.50</span></h5>
-                        <h6>Total Sale Amount</h6>
+                        <h5 ><span class="counters" data-count="{{ $totalPendingledOrdersToday }}">{{ $totalPendingledOrdersToday }}</span> Order Pending</h5>
+                        <h6>Order Pending</h6>
                     </div>
                 </div>
             </div>
@@ -44,8 +46,8 @@
                         <span><img src="{{URL::asset('assets/img/icons/dash4.svg')}}" alt="img"></span>
                     </div>
                     <div class="dash-widgetcontent">
-                        <h5 >$<span class="counters" data-count="40000.00">400.00</span></h5>
-                        <h6>Total Sale Amount</h6>
+                        <h5 ><span class="counters" data-count="{{ $totalCancelledOrdersToday }}">{{ $totalCancelledOrdersToday }}</span> Order cancel</h5>
+                        <h6>Total Order Cancel Today</h6>
                     </div>
                 </div>
             </div>
@@ -111,7 +113,6 @@
                 <div class="card flex-fill">
                     <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                         <h4 class="card-title mb-0">Bestsale To Day</h4>
-
                     </div>
                     <div class="card-body">
                         <div class="table-responsive dataview">
@@ -119,51 +120,32 @@
                                 <thead>
                                     <tr>
                                         <th>Sno</th>
-                                        <th>Products</th>
+                                        <th>Product name</th>
                                         <th>Qty</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach($bestsellingProducts as $bestsellingProduct)
                                     <tr>
-                                        <td>1</td>
+                                        <td>{{ $loop->iteration  }}</td>
                                         <td class="productimgname">
-                                            <a href="{{url('productlist')}}" class="product-img">
-                                                <img src="{{URL::asset('assets/img/product/product22.jpg')}}" alt="product">
+                                            @php
+                                                $imagesLink = is_null($bestsellingProduct->product->image)
+                                                || !file_exists('images/imageProduct/' . $bestsellingProduct->product->image)
+                                                ? 'https://phutungnhapkhauchinhhang.com/wp-content/uploads/2020/06/default-thumbnail.jpg'
+                                                : asset('images/imageProduct/' . $bestsellingProduct->product->image);
+                                            @endphp
+                                            <a class="product-img">
+                                            <img src="{{ $imagesLink }}" alt="{{ $bestsellingProduct->product->name }}" width="70"
+                                                height="70">
                                             </a>
-                                            <a href="{{url('productlist')}}">Apple Earpods</a>
+                                            <a href="{{url('productlist')}}">{{ $bestsellingProduct->product->name }}</a>
                                         </td>
-                                        <td>$891.2</td>
+                                        <td>{{ $bestsellingProduct->total_quantity }}</td>
                                     </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td class="productimgname">
-                                            <a href="{{url('productlist')}}" class="product-img">
-                                                <img src="{{URL::asset('assets/img/product/product23.jpg')}}" alt="product">
-                                            </a>
-                                            <a href="{{url('productlist')}}">iPhone 11</a>
-                                        </td>
-                                        <td>$668.51</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td class="productimgname">
-                                            <a href="{{url('productlist')}}" class="product-img">
-                                                <img src="{{URL::asset('assets/img/product/product24.jpg')}}" alt="product">
-                                            </a>
-                                            <a href="{{url('productlist')}}">samsung</a>
-                                        </td>
-                                        <td>$522.29</td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td class="productimgname">
-                                            <a href="{{url('productlist')}}" class="product-img">
-                                                <img src="{{URL::asset('assets/img/product/product6.jpg')}}" alt="product">
-                                            </a>
-                                            <a href="{{url('productlist')}}">Macbook Pro</a>
-                                        </td>
-                                        <td>$291.01</td>
-                                    </tr>
+                                    @endforeach
+
+
                                 </tbody>
                             </table>
                         </div>
@@ -186,7 +168,7 @@
 
     function drawChart() {
       var data = google.visualization.arrayToDataTable(@json($arrayDatas));
-        
+
       var options = {
         title: 'Sales in 7 day',
         curveType: 'function',

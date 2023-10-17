@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Pos;
 use App\Events\ConfirmOrder;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\Table;
@@ -33,24 +34,46 @@ class PosController extends Controller
             ->where('status', 'success')
             ->sum('total');
 
-            $arrayDatas = [];
-            $arrayDatas[] =  ['Day', 'Total Sales'];
-            $startDate = $today->copy()->subDays(6); // 6 ngày trước hôm nay
+        $arrayDatas = [];
+        $arrayDatas[] =  ['Day', 'Total Sales'];
+        $startDate = $today->copy()->subDays(6); // 6 ngày trước hôm nay
 
-            $dataOrders = Order::selectRaw('DATE(created_at) as order_date, SUM(total) as total_sales')
-                ->whereBetween('created_at', [$startDate, $today])
-                // ->where('status', 'success')
-                ->groupBy('order_date')
-                ->get();
+        // Truy vấn tất cả đơn hàng cho hôm nay
+        $totalOrdersToDay = Order::whereDate('created_at', $today)->count();
 
-            foreach ($dataOrders as $data) {
-                $arrayDatas[] = [$data->order_date, $data->total_sales];
-            }
+        // Truy vấn tất cả đơn hàng bị hủy hom nay
+        $totalCancelledOrdersToday = Order::whereDate('created_at', $today)->where('status', 'cancel')->count();
 
+        // Truy vấn tất cả đơn hàng bị hủy hom nay
+        $totalPendingledOrdersToday = Order::whereDate('created_at', $today)->where('status', 'pending')->count();
+
+        // Truy vấn danh sách sản phẩm bán chạy hôm nay
+        $bestsellingProducts = OrderItem::with('product')
+            ->select('product_id', DB::raw('SUM(qty) as total_quantity'))
+            ->whereDate('created_at', $today)
+            ->groupBy('product_id')
+            ->orderByDesc('total_quantity')
+            ->take(5) // Lấy 5 sản phẩm bán chạy nhất
+            ->get();
+
+        $dataOrders = Order::selectRaw('DATE(created_at) as order_date, SUM(total) as total_sales')
+            ->whereBetween('created_at', [$startDate, $today])
+            // ->where('status', 'success')
+            ->groupBy('order_date')
+            ->get();
+
+        foreach ($dataOrders as $data) {
+            $arrayDatas[] = [$data->order_date, $data->total_sales];
+        }
+        // dd($bestsellingProducts);
         return view('pos.pages.pos.index', [
             'number_neworder' => $number_neworder,
             'totalToday' => $totalToday,
             'totalYesterday' => $totalYesterday,
+            'totalOrdersToDay' => $totalOrdersToDay,
+            'totalCancelledOrdersToday' => $totalCancelledOrdersToday,
+            'totalPendingledOrdersToday' => $totalPendingledOrdersToday,
+            'bestsellingProducts' => $bestsellingProducts,
             'arrayDatas' => $arrayDatas
         ]);
     }
@@ -123,12 +146,14 @@ class PosController extends Controller
             ->get();
         $tables = Table::where('area', '!=', 'take away')->get();
 
-        return view('pos.pages.pos.maptable',
-        [
-            'orders' => $orders,
-             'number_neworder' => $number_neworder,
-             'tables' => $tables,
-            ]);
+        return view(
+            'pos.pages.pos.maptable',
+            [
+                'orders' => $orders,
+                'number_neworder' => $number_neworder,
+                'tables' => $tables,
+            ]
+        );
     }
 
     public function calculateTotalPrice($cart): float

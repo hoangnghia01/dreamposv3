@@ -15,7 +15,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import { MdMenuBook } from "react-icons/md";
 export default function Menu() {
-    const [data, setData] = useState({ product_categories: [], products: [], total_items: 0, cart: [], total_price: 0 });
+    const [data, setData] = useState({ product_categories: [], products: [], total_items: 0, cart: [], total_price: 0, order_id: 0 });
     const [allProduct, setAllProduct] = useState([]);
     useEffect(() => {
         setActiveButtonId('All');
@@ -49,8 +49,6 @@ export default function Menu() {
                     products: products,
                 }));
                 setActiveButtonId(product_category_id);
-
-
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -88,7 +86,6 @@ export default function Menu() {
         setShowcart(false)
     }
     const delete1 = async (productId) => {
-
         try {
             const response = await axios.get(`/api/product/delete-to-cart/${productId}`);
             const total_items = response.data.total_items;
@@ -179,10 +176,10 @@ export default function Menu() {
             const cookieData = getCookieData();
             const response = await axios.post('api/placeorderclient', cookieData);
             const cart = response.data.cart;
+            const order_id = response.data.order_id;
             setData((prevData) => ({
                 ...prevData,
-                total_items: 0,
-                total_price: 0,
+                order_id: order_id,
                 cart: cart,
                 setShowcart: false,
             }));
@@ -196,8 +193,7 @@ export default function Menu() {
             console.error('Error delete to cart:', error);
         }
     }
-
-
+    console.log(data.order_id)
     return (
         <div className="menu">
             <Container>
@@ -310,6 +306,15 @@ export default function Menu() {
                         <div className="cart_button">
                             {/* <button className="cart_back_menu" onClick={close_cart}>Tiếp tục order</button> */}
                             <button className="cart_gui_y_cau" onClick={() => place_order()}>Gửi yêu cầu</button>
+
+                        </div>
+                        <div>
+
+                            {data.order_id && (
+                                <div className="cart_button">
+                                    <button className="cart_gui_y_cau" onClick={() => this.place_order()}>Thanh toan</button>
+                                </div>
+                            )}
                         </div>
                         {/* </div> */}
                     </div>

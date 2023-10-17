@@ -45,7 +45,7 @@
 <script src="{{ URL::asset('/assets/plugins/c3-chart/d3.v5.min.js')}}"></script>
 <script src="{{ URL::asset('/assets/plugins/c3-chart/c3.min.js')}}"></script>
 <script src="{{ URL::asset('/assets/plugins/c3-chart/chart-data.js')}}"></script>
-@endif      
+@endif
 <!-- Chart JS -->
 <script src="{{ URL::asset('/assets/plugins/apexchart/apexcharts.min.js')}}"></script>
 <script src="{{ URL::asset('/assets/plugins/apexchart/chart-data.js')}}"></script>
@@ -140,4 +140,5 @@
 <!-- Custom JS -->
 <script src="{{ URL::asset('/assets/js/script.js')}}"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/39.0.2/classic/ckeditor.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     @yield('js-custom')

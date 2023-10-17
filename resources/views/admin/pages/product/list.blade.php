@@ -147,10 +147,10 @@
                                             @php
                                                 $imagesLink = is_null($product->image) || !file_exists('images/imageProduct/' . $product->image) ? 'https://phutungnhapkhauchinhhang.com/wp-content/uploads/2020/06/default-thumbnail.jpg' : asset('images/imageProduct/' . $product->image);
                                             @endphp
-                                            <aclass="product-img">
+                                            <a class="product-img">
                                             <img src="{{ $imagesLink }}" alt="{{ $product->name }}" width="70"
                                                 height="70">
-                                            </aclass=>
+                                            </a>
                                             <a>{{ $product->name }}</a>
                                         </td>
                                         <td>{{ $product->product_category->name }}</td>

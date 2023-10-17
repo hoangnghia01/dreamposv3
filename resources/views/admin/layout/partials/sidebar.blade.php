@@ -21,13 +21,13 @@
                             <img src="{{ URL::asset('/assets/img/icons/menu-icon-01.svg') }}" alt="">
                         </a>
                     </li>
-                    <li class="nav-item" role="presentation" href="{{ route('admin.review') }}">
+                    {{--  <li class="nav-item" role="presentation" href="{{ route('admin.review') }}">
                         <a class="tablinks nav-link" href="{{ route('admin.review') }}" id="report-tab" data-bs-toggle="tab"
                              role="tab" aria-selected="true">
                             <img src="{{ URL::asset('/assets/img/icons/menu-icon-05.svg') }}" alt="" href="{{ route('admin.review') }}">
                         </a>
-                    </li>
-                    <li class="nav-item" role="presentation">
+                    </li>  --}}
+                    {{--  <li class="nav-item" role="presentation">
                         <a class="tablinks nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile"
                             role="tab" aria-controls="profile" aria-selected="false">
                             <img src="{{ URL::asset('/assets/img/icons/menu-icon-02.svg') }}" alt="">
@@ -44,7 +44,7 @@
                             data-bs-target="#report" role="tab" aria-controls="report" aria-selected="true">
                             <img src="{{ URL::asset('/assets/img/icons/menu-icon-05.svg') }}" alt="">
                         </a>
-                    </li>
+                    </li>  --}}
                     <li class="nav-item" role="presentation">
                         <a class="tablinks nav-link" href="#set" id="set-tab" data-bs-toggle="tab"
                             data-bs-target="#set" role="tab" aria-controls="set" aria-selected="true">
@@ -86,7 +86,7 @@
                             <li><a href="{{ route('admin.table.create') }}">Add New Table</a></li>
                         </ul>
                     </li>
-                    <li class="submenu">
+                    {{--  <li class="submenu">
                         <a href="javascript:void(0);"><span> Expense</span> <span class="menu-arrow"></span></a>
                         <ul>
                             <li><a href="expenselist">Expense List</a></li>
@@ -142,7 +142,7 @@
                             <li><a href="newstate">New State </a></li>
                             <li><a href="statelist">State list</a></li>
                         </ul>
-                    </li>
+                    </li>  --}}
                 </ul>
                 <ul class="tab-pane" id="messages" aria-labelledby="messages-tab">
                     <li class="submenu">
@@ -175,7 +175,7 @@
                         </ul>
                     </li>
                 </ul>
-                <ul class="tab-pane" id="profile" aria-labelledby="profile-tab">
+                {{--  <ul class="tab-pane" id="profile" aria-labelledby="profile-tab">
                     <li><a href="components"><span> Components</span> </a></li>
                     <li class="submenu">
                         <a href="javascript:void(0);"><span>Elements</span> <span class="menu-arrow"></span></a>
@@ -255,7 +255,7 @@
                             <li><a href="error-500">500 Error </a></li>
                         </ul>
                     </li>
-                </ul>
+                </ul>  --}}
                 <ul class="tab-pane" id="app" aria-labelledby="app-tab">
                     <li><a href="chat">Chat</a></li>
                     <li><a href="calendar">Calendar</a></li>
