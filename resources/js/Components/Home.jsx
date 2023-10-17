@@ -18,7 +18,7 @@ import { Link } from "react-router-dom";
 import Swal from 'sweetalert2';
 // import QRCode from "qrcode.react";
 export default function Home() {
-    const [table, setTable] = useState(null);
+    const [table, setTable] = useState('');
     useEffect(() => {
         axios.get('/api/getTable')
             .then((response) => {
@@ -26,6 +26,7 @@ export default function Home() {
                 setTable(tableData);
                 const numberTableSpan = document.querySelector('.number_table');
                 numberTableSpan.textContent = tableData;
+
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);
@@ -72,8 +73,6 @@ export default function Home() {
 
 
     const tableNumber = localStorage.getItem("tableNumber");
-
-
 
     const [show, setShow] = useState(false)
     const handle_click = () => {
@@ -122,27 +121,48 @@ export default function Home() {
             otherReason,
             user_name: cookieData.user_name
             // review,
-          };
+        };
 
-          axios.post('/api/save-review', datareview)
-          .then(response => {
-            // Xử lý phản hồi từ máy chủ
-            // console.log('Phản hồi từ máy chủ:', response.datareview);
-            // Hiển thị thông báo cho người dùng
-            Swal.fire({
-              icon: 'success',
-              text: 'Cám ơn bạn đã đánh giá',
-              width: '60%',
-              height: '150px'
+        axios.post('/api/save-review', datareview)
+            .then(response => {
+                // Xử lý phản hồi từ máy chủ
+                // console.log('Phản hồi từ máy chủ:', response.datareview);
+                // Hiển thị thông báo cho người dùng
+                Swal.fire({
+                    icon: 'success',
+                    text: 'Cám ơn bạn đã đánh giá',
+                    width: '60%',
+                    height: '150px'
+                });
+                // setShow3(false)
+
+            })
+            .catch(error => {
+                // Xử lý lỗi (nếu có)
+                console.error('Lỗi khi gửi đánh giá:', error);
             });
-            // setShow3(false)
-
-          })
-          .catch(error => {
-            // Xử lý lỗi (nếu có)
-            console.error('Lỗi khi gửi đánh giá:', error);
-          });
     };
+    const [specialRequest, setSpecialRequest] = useState('');
+
+    const callWaiter = () => {
+        if (specialRequest.trim() === '') {
+            alert('Vui lòng nhập yêu cầu trước khi gửi.');
+          } else {
+            // Gọi API hoặc thực hiện hành động khi đã có nội dung trong specialRequest
+            axios.post('/api/call-waiter', { tableNumber: table, specialRequest: specialRequest })
+              .then(response => {
+                Swal.fire({
+                    icon: 'success',
+                    text: response.data.message,
+                    width: '60%',
+                    height: '150px'
+                });
+              })
+              .catch(error => {
+                console.error('Lỗi gọi API:', error);
+              });
+          }
+      };
 
     return (
         <div className="page_hone">
@@ -252,9 +272,15 @@ export default function Home() {
                         <Container>
                             <h3>Gọi nhân viên</h3>
                             <p>Bạn muốn gọi nhân viên làm gì?</p>
-                            <input placeholder="Lấy muỗn đũa, lấy thêm ly,..."></input>
+                            {/* <input placeholder="Lấy muỗn đũa, lấy thêm ly,..."></input> */}
+                            <input
+                                placeholder="Lấy muỗn đũa, lấy thêm ly,..."
+                                type="text"
+                                value={specialRequest}
+                                onChange={(e) => setSpecialRequest(e.target.value)}
+                            />
                             <div>
-                                <button className="gui_y_cau">Gửi yêu cầu</button>
+                                <button className="gui_y_cau" onClick={callWaiter}>Gửi yêu cầu</button>
                             </div>
                         </Container>
                     </div>

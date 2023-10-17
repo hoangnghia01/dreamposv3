@@ -8,7 +8,7 @@ use App\Models\ProductCategory;
 use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use Pusher\Pusher;
 class CienltController extends Controller
 {
     // public function index()
@@ -99,5 +99,32 @@ class CienltController extends Controller
         $review->save();
 
         return response()->json(['message' => 'Đánh giá đã được lưu.']);
+    }
+
+    public function callWaiter(Request $request){
+
+        $tableNumber = $request->input('tableNumber');
+        $specialRequest = $request->input('specialRequest');
+        // $request->validate([
+        //     'title' => 'required',
+        //     'content' => 'required'
+        // ]);
+
+        $data['title'] = $request->input('tableNumber');
+        $data['content'] = $request->input('specialRequest');
+
+        $options = array(
+            'cluster' => 'ap1',
+            'encrypted' => true
+        );
+
+        $pusher = new Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            $options
+        );
+        $pusher->trigger('Notify', 'send-message', $data);
+        return response()->json(['message' => 'Yêu cầu gọi nhân viên đã được ghi nhận.']);
     }
 }

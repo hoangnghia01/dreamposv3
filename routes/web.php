@@ -85,7 +85,9 @@ Route::get('/', [CienltController::class, 'welcome'])->name('home.welcome');
 Route::get('/home', [CienltController::class, 'home'])->name('home');
 Route::get('/menu', [CienltController::class, 'menu'])->name('home.menu');
 
-
+Route::get('/test', function () {
+    return view('test');
+});
 
 require __DIR__ . '/auth.php';
 

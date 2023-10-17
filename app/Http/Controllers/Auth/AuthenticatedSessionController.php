@@ -34,7 +34,7 @@ class AuthenticatedSessionController extends Controller
         if(Auth::check() && Auth::user()->role === 'user_cashier'){
             return redirect()->route('cashier.index');
         }
-        return redirect()->intended(RouteServiceProvider::HOME);
+        // return redirect()->intended(RouteServiceProvider::HOME);
     }
 
     /**

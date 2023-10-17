@@ -34,5 +34,5 @@ Route::get('/product/delete-to-cart', [CartController::class, 'emptyCart'])->nam
 
 Route::post('placeorderclient', [ClientOrderController::class, 'clientPlaceOrder'])->name('place-order-client')->middleware('checkwifi');
 Route::post('/save-review', [CienltController::class, 'saveReview'])->middleware('checkwifi');
-
+Route::post('/call-waiter', [CienltController::class, 'callWaiter']);
 

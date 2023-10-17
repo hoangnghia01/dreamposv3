@@ -123,6 +123,8 @@
                                                 badges bg-lightgreen
                                             @elseif($order->status === 'shipping')
                                                 badges bg-lightpurple
+                                                @elseif($order->status === 'cancel')
+                                                badges bg-danger
                                             @endif
                                             ">{{ $order->status }}</span></td>
                                         {{--  <td><span class="badges bg-lightgreen">Paid</span></td>  --}}

@@ -141,4 +141,5 @@
 <script src="{{ URL::asset('/assets/js/script.js')}}"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/39.0.2/classic/ckeditor.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="https://js.pusher.com/4.3/pusher.min.js"></script>
     @yield('js-custom')
