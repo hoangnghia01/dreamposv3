@@ -12,10 +12,16 @@
                     <h3 class="page-title">List Bill</h3>
                 </div>
             </div>
+            @if (session('message'))
+                <div class="col-sm-12 alert alert-success">
+                    {{ session('message') }}
+                </div>
+            @endif
+            {{--  {{ dd($orders) }}  --}}
             @if (empty($orders))
                 <div class="row">
                     <div class="col-sm-12">
-                        <h5 class="page-title">Not new order!!</h5>
+                        <h5 class="page-title">No new order!!</h5>
                     </div>
                 </div>
             @endif

@@ -1,5 +1,8 @@
 <?php $page = 'pos'; ?>
 @extends('pos.layout.master')
+@section('title')
+    <title>POS</title>
+@endsection
 @section('content')
     <div class="page-wrapper ms-0">
         <div class="content">
@@ -12,12 +15,22 @@
                             <h6>Manage your purchases</h6>
                         </div>
                     </div>
+                    @if (session('message'))
+                        <div class="col-sm-12 alert alert-success">
+                            {{ session('message') }}
+                        </div>
+                    @endif
                     <ul class=" tabs owl-carousel owl-theme owl-product  border-0 ">
                         @foreach ($product_categories as $productCategory)
                             <li id="{{ $productCategory->id }}" class="tab_content {{ $loop->first ? 'show active' : '' }}">
                                 <div class="product-details">
-                                    <img src="{{ URL::asset('/assets/img/product/product62.png') }}" alt="img">
+                                    @php
+                                        $imagesLink = is_null($productCategory->image) || !file_exists('images/imageCategory/' . $productCategory->image) ? 'https://phutungnhapkhauchinhhang.com/wp-content/uploads/2020/06/default-thumbnail.jpg' : asset('images/imageCategory/' . $productCategory->image);
+                                    @endphp
+                                    <img src="{{ $imagesLink }}" alt="img" width="20px" height="20px" />
                                     <h6>{{ $productCategory->name }}</h6>
+                                    {{--  <img src="{{ URL::asset('/assets/img/product/product62.png') }}" alt="img">
+                                    <h6>{{ $productCategory->name }}</h6>  --}}
                                 </div>
                             </li>
                         @endforeach
@@ -43,7 +56,7 @@
                                                     </div>
                                                     <div class="productsetcontent">
                                                         <h5>{{ $product->name }}</h5>
-                                                        <h6>${{ number_format($product->price, 2) }}</h6>
+                                                        <h6>{{ number_format($product->price, 2) }}đ</h6>
                                                         <a data-url="{{ route('product.add-to-cart', ['productId' => $product->id]) }}"
                                                             href="#" class="add-to-cart"><i
                                                                 class="fa fa-shopping-cart"></i></a>
@@ -111,6 +124,9 @@
                                                         </option>
                                                     @endforeach
                                                 </select>
+                                                @error('table_id')
+                                                    <div class="alert alert-danger">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
 
@@ -140,7 +156,7 @@
                             <div class="card-body pt-0">
                                 <div class="totalitem">
                                     <h4>Total items: <span id="total-items-cart"> {{ $total_items }}</span></h4>
-                                    <a href="" class="delete-cart">Clear all</a>
+                                    <a href="" class="delete-cart" >Clear all</a>
                                 </div>
                                 <div class="product-table" id="table-cart">
                                     @php $total = 0 @endphp
@@ -231,8 +247,9 @@
                                         </li>
                                     </ul>
                                 </div>  --}}
-                                <div >
-                                    <button class="btn btn-outline-primary mr-1 mb-1" type="submit" style="width: 100%; height: 100%;">Checkout</button>
+                                <div>
+                                    <button class="btn btn-outline-primary mr-1 mb-1" type="submit"
+                                        style="width: 100%; height: 100%;">Checkout</button>
 
                                 </div>
                                 {{--  <div class="btn-pos">

@@ -6,7 +6,7 @@ use App\Events\ConfirmOrder;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class SendOrderToBartender
+class Printbill
 {
     /**
      * Create the event listener.
@@ -23,11 +23,12 @@ class SendOrderToBartender
     {
         $order = $event->order;
         $pdf = app('dompdf.wrapper');
-        // return view('pos.pages.pos.billitem', ['order' => $order]); //test
-        $pdf->loadView('pos.pages.pos.billitem', ['order' => $order]);
+        // return view('pos.pages.pos.bill', ['order' => $order]);
+        $pdf->loadView('pos.pages.pos.bill', ['order' => $order]);
+        // return $pdf->stream('bill.pdf');
 
         // Tạo đường dẫn đầy đủ đến thư mục lưu trữ PDF trên máy chủ
-        $pdfPath = public_path('pdfs/'); // Thay đổi 'pdfs/' thành đường dẫn thư mục bạn muốn lưu trữ tệp PDF
+        $pdfPath = public_path('bills/'); // Thay đổi 'pdfs/' thành đường dẫn thư mục bạn muốn lưu trữ tệp PDF
 
         // Kiểm tra xem thư mục đã tồn tại chưa, nếu chưa thì tạo mới
         if (!file_exists($pdfPath)) {

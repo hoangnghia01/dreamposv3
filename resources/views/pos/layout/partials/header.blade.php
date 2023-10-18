@@ -19,14 +19,14 @@
 @endif
 <!-- Logo -->
 <div class="header-left active">
-    <a href="{{ url('index') }}" class="logo logo-normal">
+    <a href="{{ route('cashier.index') }}" class="logo logo-normal">
         <img src="{{ URL::asset('/assets/img/logo.png') }}" alt="">
     </a>
 
-    <a href="{{ url('index') }}" class="logo logo-white">
+    <a href="{{ route('cashier.index') }}" class="logo logo-white">
         <img src="{{ URL::asset('assets/img/logo-white.png') }}" alt="">
     </a>
-    <a href="{{ url('index') }}" class="logo-small">
+    <a href="{{ route('cashier.index') }}" class="logo-small">
         <img src="{{ URL::asset('/assets/img/logo-small.png') }}" alt="">
     </a>
     {{--  @if (!Route::is(['index-one', 'index-three', 'index-four', 'pos']))
@@ -240,35 +240,35 @@
     document.getElementById('btnFullscreen').addEventListener('click', function() {
         toggleFullscreen();
     });
+
 </script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="https://js.pusher.com/4.3/pusher.min.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
     integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous">
 </script>
-<script type="text/javascript">
-    var notificationsWrapper = $('.dropdown-notifications');
-    var notificationsToggle = notificationsWrapper.find('a[data-toggle]');
-    var notificationsCountElem = notificationsToggle.find('span[data-count]');
-    var notificationsCount = parseInt(notificationsCountElem.data('count'));
-    var notifications = notificationsWrapper.find('ul.dropdown-menu');
+<script type="text/javascript/pusher">
+    const notificationsWrapper = $('.dropdown-notifications');
+    const notificationsToggle = notificationsWrapper.find('a[data-toggle]');
+    const notificationsCountElem = notificationsToggle.find('span[data-count]');
+    const notificationsCount = parseInt(notificationsCountElem.data('count'));
+    const notifications = notificationsWrapper.find('ul.dropdown-menu');
 
     // Enable pusher logging - don't include this in production
     Pusher.logToConsole = true;
 
-    var pusher = new Pusher('{{ env('PUSHER_APP_KEY') }}', {
+    const pusher = new Pusher('{{ env('PUSHER_APP_KEY') }}', {
         cluster: 'ap1',
         encrypted: true
     });
 
     // Subscribe to the channel we specified in our Laravel Event
-    var channel = pusher.subscribe('Notify');
+    const channel = pusher.subscribe('Notify');
 
     // Bind a function to a Event (the full Laravel class)
     channel.bind('send-message', function(data) {
-        var existingNotifications = notifications.html();
-        var avatar = Math.floor(Math.random() * (71 - 20 + 1)) + 20;
-        var newNotificationHtml = `
+        const existingNotifications = notifications.html();
+        const newNotificationHtml = `
           <li class="notification active">
                 <div class="media d-flex">
                     <div class="media-body flex-grow-1">

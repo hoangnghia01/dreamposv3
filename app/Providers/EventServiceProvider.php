@@ -3,6 +3,9 @@
 namespace App\Providers;
 
 use App\Events\ConfirmOrder;
+use App\Events\PrintBillFromCostumer;
+use App\Events\SendBillFromCostumerToBar;
+use App\Listeners\Printbill;
 use App\Listeners\SendOrderToBartender;
 use App\Listeners\SendOrderToKitchen;
 use Illuminate\Auth\Events\Registered;
@@ -23,7 +26,7 @@ class EventServiceProvider extends ServiceProvider
         ],
         ConfirmOrder::class => [
             SendOrderToBartender::class,
-            SendOrderToKitchen::class,
+            Printbill::class,
         ],
     ];
 

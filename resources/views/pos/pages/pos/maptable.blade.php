@@ -46,6 +46,13 @@
                                     @endif
                                 </div>
                             </div>
+                            <div class="card-body">
+                                <div class="table-responsive messenger" id="{{ $table->name }}">
+                                    <!-- Thêm một phần tử để hiển thị thông báo -->
+                                    <div id="notifications"></div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 @endforeach
@@ -53,4 +60,27 @@
             </div>
         </div>
     </div>
+@endsection
+@section('js-custom')
+    <script type="text/javascript">
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
+
+        const pusher = new Pusher('{{ env('PUSHER_APP_KEY') }}', {
+            cluster: 'ap1',
+            encrypted: true
+        });
+
+        // Subscribe to the channel we specified in our Laravel Event
+        const channel = pusher.subscribe('Notify');
+        // Bind a function to a Event (the full Laravel class)
+        channel.bind('send-message', function(data) {
+            const existingNotifications = notifications.html();
+            const newNotificationHtml = `
+        <div class="notification">
+            <p>${data.title}</p>
+        </div>
+        `;
+        });
+    </script>
 @endsection

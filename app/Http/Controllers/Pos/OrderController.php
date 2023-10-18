@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Pos;
 
+use App\Events\ConfirmOrder;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PlaceControllerRequest;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\OrderPaymentMethod;
@@ -12,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
-    public function placeOrder(Request $request){
+    public function placeOrder(PlaceControllerRequest $request){
 
         try{
             DB::beginTransaction();
@@ -20,7 +22,7 @@ class OrderController extends Controller
             $order->user_id = Auth::user()->id;
             $order->table_id = $request->table_id;
             $order->note = $request->note;
-            $order->status = Order::STATUS_PENDING;
+            $order->status = Order::STATUS_SUCCESS;
             $order->created_by = Order::CREATED_BY_CASHIER;
             $order->save();
 
@@ -60,8 +62,8 @@ class OrderController extends Controller
             //Reset cart
             session()->put('cart', []);
             DB::commit();
-
-            return redirect()->route('cashier.pos');
+            event(new ConfirmOrder($order));
+            return redirect()->route('cashier.pos')->with('message', 'Xac nhan thanh cong!!');
         }catch(\Exception $exception){
             DB::rollBack();
             dd($exception->getMessage());
